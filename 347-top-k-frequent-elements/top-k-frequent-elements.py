@@ -4,8 +4,15 @@ import heapq
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # Step 1: Count frequencies
-        count_map = Counter(nums)  # Optimized counting
-
-        # Step 2: Use heap to get k most frequent elements
-        return [num for num, _ in heapq.nlargest(k, count_map.items(), key=lambda item: item[1])]
+        count = {}
+        freq = [[] for i in range(len(nums) + 1) ]
+        for n in nums:
+            count[n] = 1 + count.get(n,0)
+        for n,c in count.items():
+            freq[c].append(n)
+        res = []
+        for i in range(len(freq) - 1, 0 , -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
