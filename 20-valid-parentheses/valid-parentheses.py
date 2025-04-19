@@ -11,4 +11,3 @@ class Solution:
             else:
                 stack.append(bracket)
         return True if not stack else False
-        
